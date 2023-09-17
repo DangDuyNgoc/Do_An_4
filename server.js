@@ -3,6 +3,7 @@ import colors from 'colors';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
+import cors from "cors";
 
 import authRoutes from "./routes/authRoute.js";
 import connectDB from "./config/db.js";
@@ -29,6 +30,7 @@ app.use("/api/v1/auth", authRoutes, bodyParser.json());
 // middleware 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(cors());
 
 // rest api
 app.get('/', (req, res) => {
