@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import cors from "cors";
 
+import categoryRoutes from "./routes/categoryRoute.js"
 import authRoutes from "./routes/authRoute.js";
 import connectDB from "./config/db.js";
 
@@ -25,6 +26,7 @@ app.use(bodyParser.json());
 
 // routes
 app.use("/api/v1/auth", authRoutes, bodyParser.json());
+app.use("/api/v1/category", categoryRoutes, bodyParser.json());
 
 
 // middleware 
