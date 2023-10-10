@@ -33,11 +33,17 @@ const Login = () => {
                 user: res.data.user,
                 token: res.data.token
             });
+            console.log(res.data.user.email);
             localStorage.setItem("auth", JSON.stringify(res.data));
             navigate( location.state ||"/");
         } else {
             toast.error(res.data.message);
         }
+        
+        if(res && res.data.user.email === undefined) {
+            toast.error("Invalid Email");
+        }
+
         } catch (error) {
             console.log(error);
             toast.error("NGU! Something went wrong!");
@@ -76,15 +82,15 @@ const Login = () => {
                     </button>
                 </div>
 
-                <button type="submit" className="btn btn-primary"
-                    onClick={() => { navigate('/forgot-password') }}
-                >
-                    Forgot Password
-                </button>
-
                 <button type="submit" className="btn btn-primary">
                     Login
                 </button>
+
+                <button type="submit" className="btn btn-primary"
+                    onClick={() => { navigate('/forgot-password') }}
+                >
+                Forgot Password
+            </button>
             </form>
         </div>
     </Layout>
