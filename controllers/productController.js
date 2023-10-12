@@ -7,14 +7,14 @@ export const createProduct = async (req, res) => {
     try {
         const { 
             name,
-            slug,
             description,
             price,
             category,
             quantity,
             shipping
         } = req.fields;
-        const { image } = req.fields;
+
+        const { image } = req.files;
 
         if(!name) {
             return res.status(400).send({ error: 'Name is required' });
@@ -70,7 +70,7 @@ export const updateProduct = async (req, res) => {
             quantity,
             shipping
         } = req.fields;
-        const { image } = req.fields;
+        const { image } = req.files;
 
         if(!name) {
             return res.status(400).send({ error: 'Name is required' });
@@ -91,7 +91,7 @@ export const updateProduct = async (req, res) => {
             return res.status(400).send({ error: 'Image is Required and should be less then 1mb' });
         }
 
-        const products = await productModel.findByIdAndUpdate(req.params.pid
+        const products = await productModel.findByIdAndUpdate(req.params.pid,
             {
                 ...req.fields,
                 slug:slugify(name)
@@ -168,6 +168,7 @@ export const getSingleProduct = async (req, res) => {
     }
 };
 
+// get image 
 export const getProductImage = async (req, res) => {
     try {
         const product = await productModel.findById(req.params.pid).select('image')
@@ -185,13 +186,13 @@ export const getProductImage = async (req, res) => {
     }
 };
 
+// delete Product
 export const deleteProduct = async (req, res) => {
     try {
         await productModel.findByIdAndDelete(req.params.pid).select('-image');
         res.status(200).send({
             success: true,
             message: 'Deleted Product SuccessFully'
-
         })
     } catch (error) {
         console.log(error);

@@ -19,7 +19,7 @@ const CreateCategory = () => {
         e.preventDefault();
         try {
             const { data } = await axios.post('/api/v1/category/create-category', {name});
-            if(data?.success) {
+            if(data.success) {
                 toast.success(`${name} is Created`);
                 getAllCategory();
             } else {
@@ -74,8 +74,8 @@ const CreateCategory = () => {
     const getAllCategory = async () => {
         try {
         const { data } = await axios.get("/api/v1/category/get-category");
-        if (data.success) {
-            setCategories(data.category);
+        if (data?.success) {
+            setCategories(data?.category);
         }
         } catch (error) {
         console.log(error);
