@@ -267,4 +267,47 @@ export const productList = async (req, res) => {
             error: error
         });
     }
+};
+
+export const searchProduct = async (req, res) => {
+    try {
+        const { keyword } = req.params;
+        const result = await productModel.find({
+            $or: [
+                { name: { $regex: keyword, $options: "i" } },
+                { description: { $regex: keyword, $options: "i" } }
+            ]
+        })
+        .select('-image');
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in Search Product",
+            error: error
+        });
+    }
+};
+
+// related product
+export const relatedProduct = async (req, res) => {
+    try {
+        const { pid, cid } = req.params;
+        const products = await productModel.find({
+            category: cid,
+            _id: {$ne: pid},
+        }).select("-image").limit(3).populate("category");
+        res.status(200).send({
+            success: true,
+            products,
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Related Product",
+            error: error
+        });
+    }
 }

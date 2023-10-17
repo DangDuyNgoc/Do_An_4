@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Checkbox, Radio } from 'antd';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import Layout from '../components/Layout/Layout';
 import { Price } from './../components/Price';
@@ -13,6 +14,8 @@ const HomePage = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   // get total count
   const getTotal = async () => {
@@ -146,7 +149,12 @@ const HomePage = () => {
                     {product.description.substring(0,30)}....
                   </p>
                   <p className='card-text'>{product.price}</p>
-                  <button className='btn btn-primary'>More Details</button>
+                  <button 
+                    className='btn btn-primary'
+                    onClick={() => navigate(`/product/${product.slug}`)}
+                  >
+                    More Details
+                  </button>
                   <button className='btn btn-secondary'>Add to Cart</button>
                 </div>
               </div>
