@@ -2,6 +2,7 @@ import slugify from "slugify";
 import fs from "fs";
 
 import productModel from "../models/productModel.js";
+import categoryModel from "../models/categoryModel.js";
 
 export const createProduct = async (req, res) => {
     try {
@@ -310,4 +311,23 @@ export const relatedProduct = async (req, res) => {
             error: error
         });
     }
-}
+};
+
+export const productCategory = async (req, res) => {
+    try {
+        const category = await categoryModel.findOne({slug:req.params.slug});
+        const products = await productModel.findOne({ category }).populate('category');
+        res.status(200).send({
+            success: true,
+            category,
+            products
+        })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            success: false,
+            message: "Error in Category of the Products",
+            error: error
+        })
+    }
+};

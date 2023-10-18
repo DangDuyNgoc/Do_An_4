@@ -47,7 +47,6 @@ const Header = () => {
                   to="/"
                   className="nav-link"
                   aria-current="page"
-                  
                 >
                   Home
                 </NavLink>
@@ -64,6 +63,11 @@ const Header = () => {
                   Categories
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link className="dropdown-item" to={"/categories"}>
+                      All Categories
+                    </Link>
+                </li>
                   {categories.map(c => (
                     <li key={c._id}>
                       <Link className="dropdown-item" to={`/category/${c.slug}`}>

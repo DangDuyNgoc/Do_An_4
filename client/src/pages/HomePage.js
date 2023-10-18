@@ -133,7 +133,7 @@ const HomePage = () => {
           </Radio.Group>
           </div>
         </div>
-        <div className='col-md-9'>
+        <div className='col-md-9 offset-1'>
           <h1 className='text-center'>All Products</h1>
           <div className='d-flex flex-wrap'>
             {products.map((product) => (
