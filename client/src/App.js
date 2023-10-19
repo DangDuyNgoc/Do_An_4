@@ -22,6 +22,7 @@ import Search from "./pages/Search";
 import ProductDetails from "./pages/ProductDetails";
 import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
+import CartPage from "./pages/CartPage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/categories" element={<Categories />}></Route>
         <Route path="/category/:slug" element={<CategoryProduct />}></Route>
         <Route path="/search" element={<Search />}></Route>
+        <Route path="/cart" element={<CartPage />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/forgot-password" element={<ForgotPass />}></Route>

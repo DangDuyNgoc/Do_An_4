@@ -1,13 +1,16 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Badge } from "antd";
 
 import { useAuth } from "../../context/auth";
+import { useCart } from "../../context/cart";
 import useCategory from "../../hooks/useCategory";
 import SearchInput from "../Form/SearchInput";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
 
   const categories = useCategory();
 
@@ -129,9 +132,11 @@ const Header = () => {
               )}
 
               <li className="nav-item">
+              <Badge count={cart?.length} showZero>
                 <NavLink to="/cart" className="nav-link" >
-                  Cart  
+                  Cart
                 </NavLink>
+              </Badge>
               </li>
             </ul>
           </div>

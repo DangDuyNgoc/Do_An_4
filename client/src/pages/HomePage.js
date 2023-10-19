@@ -5,10 +5,13 @@ import { useNavigate } from 'react-router-dom';
 
 import Layout from '../components/Layout/Layout';
 import { Price } from './../components/Price';
+import { useCart } from '../context/cart';
+import toast from 'react-hot-toast';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [cart, setCart] = useCart();
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [total, setTotal] = useState(0);
@@ -155,7 +158,13 @@ const HomePage = () => {
                   >
                     More Details
                   </button>
-                  <button className='btn btn-secondary'>Add to Cart</button>
+                  <button className='btn btn-secondary' onClick={() => {
+                    setCart([...cart, product])
+                    toast.success('Item Added to cart')
+                    }}
+                  >
+                    Add to Cart
+                  </button>
                 </div>
               </div>
             ))}
