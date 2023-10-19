@@ -156,7 +156,39 @@ export const forgotPasswordController = async (req, res) => {
     }
 }
 
-// TESt
-export const testController = (req, res) => {
-    res.send("protected routes");
+// update profile
+export const updateProfileController = async (req, res) => {
+    try{
+        const { name, email, phone, password } = req.body;
+        const user = await userModel.findById(req.user._id);
+
+        if(password && password.length < 6) {
+            return res.json({error: 'Password is required and less than 6 characters'})
+        };
+        
+        const hashedPassword = password ? await hashPassword(password) : undefined;
+        const updateUser = await userModel.findByIdAndUpdate(
+            req.user._id, 
+            {
+                name: name || user.name,
+                password: hashedPassword || user.password,
+                email: email || user.email,
+                phone: phone || user.phone
+            }, 
+            { new: true }
+        );
+        res.status(200).send({
+            success: true,
+            message: 'Profile Updated Successfully',
+            updateUser
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: 'Something went wrong in Update Profile!',
+            error
+        })
+    }
 }

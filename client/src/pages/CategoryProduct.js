@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout/Layout";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-
 const CategoryProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [categories, SetCategorise] = useState([]);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
-    if (params?.slug) getProductsByCate();
+    if (params?.slug) getPrductsByCat();
   }, [params?.slug]);
-
-  const getProductsByCate = async () => {
+  const getPrductsByCat = async () => {
     try {
       const { data } = await axios.get(
-        `/api/v1/product-category/${params.slug}`
-      );
+        `/api/v1/product/product-category/${params.slug}`
+      );  
       setProducts(data?.products);
-      SetCategorise(data?.category);
+      setCategory(data?.category);
     } catch (error) {
       console.log(error);
     }
@@ -27,36 +25,41 @@ const CategoryProduct = () => {
 
   return (
     <Layout>
-      <div className="container mt-3">
-        <h1>{categories.name}</h1>
-        <h6>{products?.length} results found</h6>
+      <div className="container mt-3 category">
+        <h4 className="text-center">Category - {category?.name}</h4>
+        <h6 className="text-center">{products?.length} result found </h6>
         <div className="row">
           <div className="col-md-9 offset-1">
             <div className="d-flex flex-wrap">
-              {products.map((product) => (
-                <div
-                  className="card m-2"
-                  style={{ width: "18rem" }}
-                  key={product._id}
-                >
+              {products?.map((p) => (
+                <div className="card m-2" key={p._id}>
                   <img
-                    src={`/api/v1/product/product-image/${product._id}`}
+                    src={`/api/v1/product/product-photo/${p._id}`}
                     className="card-img-top"
-                    alt={product.name}
+                    alt={p.name}
                   />
                   <div className="card-body">
-                    <h5 className="card-title">{product.name}</h5>
-                    <p className="card-text">
-                      {product.description.substring(0, 30)}....
+                    <div className="card-name-price">
+                      <h5 className="card-title">{p.name}</h5>
+                      <h5 className="card-title card-price">
+                        {p.price.toLocaleString("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </h5>
+                    </div>
+                    <p className="card-text ">
+                      {p.description.substring(0, 60)}...
                     </p>
-                    <p className="card-text">{product.price}</p>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => navigate(`/product/${product.slug}`)}
-                    >
-                      More Details
-                    </button>
-                    <button className="btn btn-secondary">Add to Cart</button>
+                    <div className="card-name-price">
+                      <button
+                        className="btn btn-info ms-1"
+                        onClick={() => navigate(`/product/${p.slug}`)}
+                      >
+                        More Details
+                      </button>
+                      
+                    </div>
                   </div>
                 </div>
               ))}

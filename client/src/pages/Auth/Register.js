@@ -19,6 +19,7 @@ const Register = () => {
     setShowPassword(!showPassword);
   };
 
+  // form handle
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

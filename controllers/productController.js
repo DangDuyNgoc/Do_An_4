@@ -64,7 +64,6 @@ export const updateProduct = async (req, res) => {
     try {
         const { 
             name,
-            slug,
             description,
             price,
             category,
@@ -270,6 +269,7 @@ export const productList = async (req, res) => {
     }
 };
 
+// search
 export const searchProduct = async (req, res) => {
     try {
         const { keyword } = req.params;
@@ -313,10 +313,11 @@ export const relatedProduct = async (req, res) => {
     }
 };
 
+// category of product
 export const productCategory = async (req, res) => {
     try {
-        const category = await categoryModel.findOne({slug:req.params.slug});
-        const products = await productModel.findOne({ category }).populate('category');
+        const category = await categoryModel.findOne({ slug:req.params.slug });
+        const products = await productModel.find({ category }).populate('category');
         res.status(200).send({
             success: true,
             category,

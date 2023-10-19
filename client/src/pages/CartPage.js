@@ -31,7 +31,7 @@ const CartPage = () => {
                 total += item.price;
             });
 
-            return total.toExponential("vi-VN", {
+            return total.toLocaleString("vi-VN", {
                 style: "currency",
                 currency: "VND"
             })
