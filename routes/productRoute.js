@@ -7,7 +7,6 @@ import {
     getAllProduct,
     getProductImage,
     getSingleProduct,
-    ordersController,
     paymentController,
     productCategory,
     productCount,

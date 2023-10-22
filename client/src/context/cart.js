@@ -6,11 +6,14 @@ const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
-        
+        let localStorageCart = localStorage.getItem("cart");
+        if(localStorageCart) setCart(JSON.parse(localStorageCart));
     }, []);
 
     return (
-        <CartContext.Provider value={[cart, setCart]}>{children}</CartContext.Provider>
+        <CartContext.Provider value={[cart, setCart]}>
+            {children}
+        </CartContext.Provider>
     );
 };
 

@@ -395,4 +395,3 @@ export const paymentController = async (req, res) => {
         console.log(error);
     }
 };
-
