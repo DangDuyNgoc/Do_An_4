@@ -159,7 +159,8 @@ const HomePage = () => {
                     More Details
                   </button>
                   <button className='btn btn-secondary' onClick={() => {
-                    setCart([...cart, product])
+                    setCart([...cart, product]);
+                    localStorage.setItem("cart", JSON.stringify([...cart, product]));
                     toast.success('Item Added to cart')
                     }}
                   >
