@@ -1,12 +1,16 @@
 import { Layout } from 'antd';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
+import { useCart } from '../context/cart';
 
 const ProductDetails = () => {
     const params = useParams();
     const [product, setProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
+    const [cart, setCart] = useCart();
 
     // initial details
     useEffect(() => {
@@ -66,10 +70,15 @@ const ProductDetails = () => {
                             <div className="card-body">
                                 <h5 className="card-title">{product.name}</h5>
                                 <p className="card-text">
-                                    {product.description.substring(0,30)}....
+                                    {product.description}....
                                 </p>
                                 <p className='card-text'>{product.price}</p>
-                                <button className='btn btn-secondary'>Add to Cart</button>
+                                <button className='btn btn-secondary' onClick={() => {
+                                    toast.success('Item Added to cart')
+                                    }}
+                                  >
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                     ))}

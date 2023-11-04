@@ -71,7 +71,7 @@ const Orders = () => {
                           </div>
                           <div className='col-md-4'>
                               <p>{p.name}</p>
-                              <p>{p.description.substring(0, 30)}</p>
+                              <p>{p.description}</p>
                               <p>Price: {p.price}</p>
                           </div>
                       </div>

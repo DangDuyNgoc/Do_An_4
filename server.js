@@ -39,7 +39,7 @@ app.use(cors());
 // rest api
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to Ecommerce app</h1>');
-})
+});
 
 // PORT
 const PORT = process.env.PORT || 8080;

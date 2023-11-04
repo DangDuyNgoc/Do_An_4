@@ -3,10 +3,10 @@ import { Checkbox, Radio } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+import toast from 'react-hot-toast';
 import Layout from '../components/Layout/Layout';
 import { Price } from './../components/Price';
 import { useCart } from '../context/cart';
-import toast from 'react-hot-toast';
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -149,7 +149,7 @@ const HomePage = () => {
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">
-                    {product.description.substring(0,30)}....
+                    {product.description}....
                   </p>
                   <p className='card-text'>{product.price}</p>
                   <button 
